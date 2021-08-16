@@ -57,11 +57,13 @@ extension RepositoryListViewStream {
                    refreshControlValueChanged)
 
         fetchRepositories
+            .do(onNext: { _ in state.isRefreshControlRefreshing.accept(true) })
             .map { (limit: Const.count, offset: 0) }
             .bind(to: fetchRepositoriesAction.inputs)
             .disposed(by: disposeBag)
 
         flux.repositoryStore.repositories.asObservable()
+            .do(onNext: { _ in state.isRefreshControlRefreshing.accept(false) })
             .bind(to: state.repositories)
             .disposed(by: disposeBag)
 
