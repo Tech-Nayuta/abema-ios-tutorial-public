@@ -7,7 +7,6 @@ import UIKit
 final class RepositoryListCell: UITableViewCell {
 
     private let viewStream = RepositoryListCellStream()
-
     private let disposeBag = DisposeBag()
 
     var repository: Repository? = nil {
@@ -19,6 +18,10 @@ final class RepositoryListCell: UITableViewCell {
 
         viewStream.output.titleText
             .bind(to: textLabel!.rx.text)
+            .disposed(by: disposeBag)
+
+        viewStream.output.detailText
+            .bind(to: detailTextLabel!.rx.text)
             .disposed(by: disposeBag)
     }
 
