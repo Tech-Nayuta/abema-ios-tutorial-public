@@ -19,10 +19,12 @@ final class RepositoryListCellStreamTests: XCTestCase {
         let repository = Repository(id: 123, name: "name", description: "description", owner: owner)
 
         let titleText = WatchStack(testTarget.output.titleText)
+        let detailText = WatchStack(testTarget.output.detailText)
 
         testTarget.input.repository(repository)
 
         XCTAssertEqual(titleText.value, "owner / name")
+        XCTAssertEqual(detailText.value, "description")
     }
 }
 
